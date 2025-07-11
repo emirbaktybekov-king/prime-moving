@@ -1,7 +1,6 @@
-
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface Quote {
@@ -53,15 +52,7 @@ export default function AdminDashboard() {
   });
   const router = useRouter();
 
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
-  useEffect(() => {
-    filterQuotes();
-  }, [quotes, searchTerm, statusFilter]);
-
-  const checkAuth = async () => {
+  const checkAuth = useCallback(async () => {
     try {
       const response = await fetch('/api/admin/me');
       if (response.ok) {
@@ -77,9 +68,9 @@ export default function AdminDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [router]); // Dependencies for checkAuth
 
-  const fetchQuotes = async () => {
+  const fetchQuotes = useCallback(async () => {
     try {
       const response = await fetch('/api/admin/quotes');
       if (response.ok) {
@@ -90,9 +81,9 @@ export default function AdminDashboard() {
     } catch (error) {
       console.error('Error fetching quotes:', error);
     }
-  };
+  }, []); // No dependencies for fetchQuotes
 
-  const calculateStats = (quotesData: Quote[]) => {
+  const calculateStats = useCallback((quotesData: Quote[]) => {
     const stats = {
       total: quotesData.length,
       new: quotesData.filter(q => !q.status || q.status === 'NEW').length,
@@ -102,9 +93,9 @@ export default function AdminDashboard() {
       completed: quotesData.filter(q => q.status === 'COMPLETED').length,
     };
     setQuoteStats(stats);
-  };
+  }, []); // No dependencies for calculateStats
 
-  const filterQuotes = () => {
+  const filterQuotes = useCallback(() => {
     let filtered = quotes;
 
     if (searchTerm) {
@@ -122,7 +113,15 @@ export default function AdminDashboard() {
     }
 
     setFilteredQuotes(filtered);
-  };
+  }, [quotes, searchTerm, statusFilter]); // Dependencies for filterQuotes
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  useEffect(() => {
+    filterQuotes();
+  }, [filterQuotes]);
 
   const fetchPendingAdmins = async () => {
     try {
@@ -372,7 +371,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-sm">
                   <div className="text-2xl font-bold text-purple-600">{quoteStats.booked}</div>
-                  <div className="text-sm text-gray-600">Booked</div>
+                  <div className="text-sm text-gray tamanho-600">Booked</div>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-sm">
                   <div className="text-2xl font-bold text-green-600">{quoteStats.completed}</div>

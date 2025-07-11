@@ -1,31 +1,50 @@
+"use client";
 
-'use client';
 import { useTranslation } from "@/hooks/useTranslation";
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  smoothScrollTo: (elementId: string) => void;
+}
+
+export default function HeroSection({ smoothScrollTo }: HeroSectionProps) {
   const { t } = useTranslation();
-  
+
   const scrollToQuote = () => {
-    const quoteSection = document.getElementById('quote');
-    if (quoteSection) {
-      quoteSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    smoothScrollTo("quote");
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 overflow-hidden">
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 overflow-hidden"
+    >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Ccircle cx='7' cy='7' r='3'/%3E%3Ccircle cx='53' cy='7' r='3'/%3E%3Ccircle cx='7' cy='53' r='3'/%3E%3Ccircle cx='53' cy='53' r='3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Ccircle cx='7' cy='7' r='3'/%3E%3Ccircle cx='53' cy='7' r='3'/%3E%3Ccircle cx='7' cy='53' r='3'/%3E%3Ccircle cx='53' cy='53' r='3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
       </div>
-      
+
       {/* Floating Elements */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-white bg-opacity-20 rounded-full animate-bounce" style={{animationDelay: '0s', animationDuration: '3s'}} />
-      <div className="absolute top-40 right-20 w-16 h-16 bg-white bg-opacity-15 rounded-full animate-bounce" style={{animationDelay: '1s', animationDuration: '4s'}} />
-      <div className="absolute bottom-40 left-20 w-12 h-12 bg-white bg-opacity-25 rounded-full animate-bounce" style={{animationDelay: '2s', animationDuration: '5s'}} />
-      <div className="absolute bottom-20 right-40 w-14 h-14 bg-white bg-opacity-20 rounded-full animate-bounce" style={{animationDelay: '0.5s', animationDuration: '3.5s'}} />
+      <div
+        className="absolute top-20 left-10 w-20 h-20 bg-white bg-opacity-20 rounded-full animate-bounce"
+        style={{ animationDelay: "0s", animationDuration: "3s" }}
+      />
+      <div
+        className="absolute top-40 right-20 w-16 h-16 bg-white bg-opacity-15 rounded-full animate-bounce"
+        style={{ animationDelay: "1s", animationDuration: "4s" }}
+      />
+      <div
+        className="absolute bottom-40 left-20 w-12 h-12 bg-white bg-opacity-25 rounded-full animate-bounce"
+        style={{ animationDelay: "2s", animationDuration: "5s" }}
+      />
+      <div
+        className="absolute bottom-20 right-40 w-14 h-14 bg-white bg-opacity-20 rounded-full animate-bounce"
+        style={{ animationDelay: "0.5s", animationDuration: "3.5s" }}
+      />
 
       <div className="container mx-auto px-4 text-center text-white relative z-10">
         <div className="max-w-4xl mx-auto">
@@ -46,12 +65,20 @@ export default function HeroSection() {
           </h1>
 
           {/* Description */}
-          <p className="text-lg md:text-xl text-orange-100 mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up" style={{animationDelay: '0.2s'}}>
-            We handle your belongings with care and precision. From local moves to long-distance relocations, we make your moving experience stress-free and efficient.
+          <p
+            className="text-lg md:text-xl text-orange-100 mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up"
+            style={{ animationDelay: "0.2s" }}
+          >
+            We handle your belongings with care and precision. From local moves
+            to long-distance relocations, we make your moving experience
+            stress-free and efficient.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up" style={{animationDelay: '0.4s'}}>
+          <div
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up"
+            style={{ animationDelay: "0.4s" }}
+          >
             <button
               onClick={scrollToQuote}
               className="bg-white text-orange-600 font-bold py-3 px-8 rounded-lg text-lg hover:bg-orange-50 transition-all shadow-lg transform hover:scale-105"
@@ -59,12 +86,7 @@ export default function HeroSection() {
               Get Free Quote
             </button>
             <button
-              onClick={() => {
-                const servicesSection = document.getElementById('services');
-                if (servicesSection) {
-                  servicesSection.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
+              onClick={() => smoothScrollTo("services")}
               className="border-2 border-white text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-white hover:text-orange-600 transition-all transform hover:scale-105"
             >
               Our Services
@@ -72,7 +94,10 @@ export default function HeroSection() {
           </div>
 
           {/* Trust Indicators */}
-          <div className="mt-12 flex flex-wrap justify-center items-center gap-6 text-orange-100 animate-fade-in" style={{animationDelay: '0.6s'}}>
+          <div
+            className="mt-12 flex flex-wrap justify-center items-center gap-6 text-orange-100 animate-fade-in"
+            style={{ animationDelay: "0.6s" }}
+          >
             <div className="flex items-center">
               <span className="text-xl mr-2">🛡️</span>
               <span className="font-medium">Fully Insured</span>
@@ -102,25 +127,29 @@ export default function HeroSection() {
 
       <style jsx>{`
         @keyframes fade-in {
-          from { opacity: 0; }
-          to { opacity: 1; }
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
         }
-        
+
         @keyframes slide-up {
-          from { 
-            opacity: 0; 
-            transform: translateY(30px); 
+          from {
+            opacity: 0;
+            transform: translateY(30px);
           }
-          to { 
-            opacity: 1; 
-            transform: translateY(0); 
+          to {
+            opacity: 1;
+            transform: translateY(0);
           }
         }
-        
+
         .animate-fade-in {
           animation: fade-in 1s ease-out;
         }
-        
+
         .animate-slide-up {
           animation: slide-up 1s ease-out;
         }

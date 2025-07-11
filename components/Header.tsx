@@ -1,7 +1,12 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
 import Image from "next/image";
+
+interface HeaderProps {
+  smoothScrollTo: (elementId: string) => void;
+}
 
 const flagMap = {
   en: "🇺🇸",
@@ -15,7 +20,7 @@ const languageNames = {
   ru: "Русский",
 };
 
-export default function Header() {
+export default function Header({ smoothScrollTo }: HeaderProps) {
   const { t, locale, setLocale } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,10 +44,7 @@ export default function Header() {
   };
 
   const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
+    smoothScrollTo(sectionId);
     closeMenu();
   };
 
@@ -199,7 +201,9 @@ export default function Header() {
                 {Object.entries(languageNames).map(([code, name]) => (
                   <button
                     key={code}
-                    onClick={() => setLocale(code)}
+                    onClick={() =>
+                      setLocale(code as keyof typeof languageNames)
+                    }
                     className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
                       locale === code
                         ? "bg-orange-50 text-orange-600"

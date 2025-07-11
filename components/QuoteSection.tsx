@@ -1,26 +1,54 @@
-
-'use client';
+"use client";
 import { useState } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
 import SuccessModal from "./SuccessModal";
 
 // Custom Date Picker Modal Component
-const DatePickerModal = ({ isOpen, onClose, onSelectDate, selectedDate }: {
+const DatePickerModal = ({
+  isOpen,
+  onClose,
+  onSelectDate,
+  selectedDate,
+}: {
   isOpen: boolean;
   onClose: () => void;
   onSelectDate: (date: string) => void;
   selectedDate: string;
 }) => {
   const { t } = useTranslation();
-  const [currentMonth, setCurrentMonth] = useState(selectedDate ? new Date(selectedDate).getMonth() : new Date().getMonth());
-  const [currentYear, setCurrentYear] = useState(selectedDate ? new Date(selectedDate).getFullYear() : new Date().getFullYear());
+  const [currentMonth, setCurrentMonth] = useState(
+    selectedDate ? new Date(selectedDate).getMonth() : new Date().getMonth()
+  );
+  const [currentYear, setCurrentYear] = useState(
+    selectedDate
+      ? new Date(selectedDate).getFullYear()
+      : new Date().getFullYear()
+  );
 
-  const months = t('calendar.months') || [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
+  const months = t("calendar.months") || [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
-  const daysShort = t('calendar.daysShort') || ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+  const daysShort = t("calendar.daysShort") || [
+    "Su",
+    "Mo",
+    "Tu",
+    "We",
+    "Th",
+    "Fr",
+    "Sa",
+  ];
 
   const getDaysInMonth = (month: number, year: number) => {
     return new Date(year, month + 1, 0).getDate();
@@ -31,12 +59,14 @@ const DatePickerModal = ({ isOpen, onClose, onSelectDate, selectedDate }: {
   };
 
   const formatDate = (year: number, month: number, day: number) => {
-    return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    return `${year}-${String(month + 1).padStart(2, "0")}-${String(
+      day
+    ).padStart(2, "0")}`;
   };
 
   const parseDate = (dateString: string) => {
     if (!dateString) return null;
-    const [year, month, day] = dateString.split('-').map(Number);
+    const [year, month, day] = dateString.split("-").map(Number);
     return { year, month: month - 1, day };
   };
 
@@ -54,17 +84,21 @@ const DatePickerModal = ({ isOpen, onClose, onSelectDate, selectedDate }: {
 
     // Days of the month
     for (let day = 1; day <= daysInMonth; day++) {
-      const isSelected = selectedDateObj && 
-        selectedDateObj.year === currentYear && 
-        selectedDateObj.month === currentMonth && 
+      const isSelected =
+        selectedDateObj &&
+        selectedDateObj.year === currentYear &&
+        selectedDateObj.month === currentMonth &&
         selectedDateObj.day === day;
 
       const today = new Date();
-      const isToday = today.getFullYear() === currentYear && 
-        today.getMonth() === currentMonth && 
+      const isToday =
+        today.getFullYear() === currentYear &&
+        today.getMonth() === currentMonth &&
         today.getDate() === day;
 
-      const isPast = new Date(currentYear, currentMonth, day) < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const isPast =
+        new Date(currentYear, currentMonth, day) <
+        new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
       days.push(
         <button
@@ -78,12 +112,12 @@ const DatePickerModal = ({ isOpen, onClose, onSelectDate, selectedDate }: {
           disabled={isPast}
           className={`w-12 h-12 text-sm rounded-lg flex items-center justify-center transition-colors font-medium ${
             isPast
-              ? 'text-gray-300 cursor-not-allowed'
-              : isSelected 
-              ? 'bg-orange-500 text-white shadow-lg' 
+              ? "text-gray-300 cursor-not-allowed"
+              : isSelected
+              ? "bg-orange-500 text-white shadow-lg"
               : isToday
-              ? 'bg-orange-100 text-orange-600 font-bold border-2 border-orange-300'
-              : 'hover:bg-orange-50 text-gray-700 hover:text-orange-600'
+              ? "bg-orange-100 text-orange-600 font-bold border-2 border-orange-300"
+              : "hover:bg-orange-50 text-gray-700 hover:text-orange-600"
           }`}
         >
           {day}
@@ -101,13 +135,25 @@ const DatePickerModal = ({ isOpen, onClose, onSelectDate, selectedDate }: {
       <div className="bg-white rounded-xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h3 className="text-xl font-bold text-gray-800">{t('quote.moveDate')}</h3>
+          <h3 className="text-xl font-bold text-gray-800">
+            {t("quote.moveDate")}
+          </h3>
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
           >
-            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-5 h-5 text-gray-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
@@ -127,10 +173,20 @@ const DatePickerModal = ({ isOpen, onClose, onSelectDate, selectedDate }: {
                 }
               }}
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-              title={t('quote.previousMonth')}
+              title={t("quote.previousMonth")}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
             </button>
 
@@ -149,10 +205,20 @@ const DatePickerModal = ({ isOpen, onClose, onSelectDate, selectedDate }: {
                 }
               }}
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-              title={t('quote.nextMonth')}
+              title={t("quote.nextMonth")}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </button>
           </div>
@@ -160,16 +226,17 @@ const DatePickerModal = ({ isOpen, onClose, onSelectDate, selectedDate }: {
           {/* Days of week header */}
           <div className="grid grid-cols-7 gap-1 mb-4">
             {daysShort.map((day, index) => (
-              <div key={index} className="w-12 h-10 flex items-center justify-center text-sm font-bold text-gray-600">
+              <div
+                key={index}
+                className="w-12 h-10 flex items-center justify-center text-sm font-bold text-gray-600"
+              >
                 {day}
               </div>
             ))}
           </div>
 
           {/* Calendar grid */}
-          <div className="grid grid-cols-7 gap-1">
-            {renderCalendar()}
-          </div>
+          <div className="grid grid-cols-7 gap-1">{renderCalendar()}</div>
 
           {/* Today button */}
           <div className="mt-6 pt-4 border-t border-gray-200">
@@ -177,13 +244,17 @@ const DatePickerModal = ({ isOpen, onClose, onSelectDate, selectedDate }: {
               type="button"
               onClick={() => {
                 const today = new Date();
-                const dateStr = formatDate(today.getFullYear(), today.getMonth(), today.getDate());
+                const dateStr = formatDate(
+                  today.getFullYear(),
+                  today.getMonth(),
+                  today.getDate()
+                );
                 onSelectDate(dateStr);
                 onClose();
               }}
               className="w-full bg-orange-100 text-orange-600 py-2 px-4 rounded-lg hover:bg-orange-200 transition-colors font-medium"
             >
-              {t('calendar.today') || 'Today'}
+              {t("calendar.today") || "Today"}
             </button>
           </div>
         </div>
@@ -195,27 +266,29 @@ const DatePickerModal = ({ isOpen, onClose, onSelectDate, selectedDate }: {
 export default function QuoteSection() {
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    moveDate: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    moveDate: "",
+    message: "",
   });
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleDateSelect = (date: string) => {
     setFormData({
       ...formData,
-      moveDate: date
+      moveDate: date,
     });
   };
 
@@ -224,10 +297,10 @@ export default function QuoteSection() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/quote', {
-        method: 'POST',
+      const response = await fetch("/api/quote", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name: formData.name,
@@ -241,19 +314,19 @@ export default function QuoteSection() {
       if (response.ok) {
         setShowSuccessModal(true);
         setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          moveDate: '',
-          message: ''
+          name: "",
+          email: "",
+          phone: "",
+          moveDate: "",
+          message: "",
         });
       } else {
-        console.error('Failed to submit quote');
-        alert('Failed to submit quote. Please try again.');
+        console.error("Failed to submit quote");
+        alert("Failed to submit quote. Please try again.");
       }
     } catch (error) {
-      console.error('Error submitting quote:', error);
-      alert('An error occurred. Please try again.');
+      console.error("Error submitting quote:", error);
+      alert("An error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -263,21 +336,27 @@ export default function QuoteSection() {
     setShowSuccessModal(false);
   };
 
-  const displayDate = formData.moveDate ? new Date(formData.moveDate).toLocaleDateString() : '';
+  const displayDate = formData.moveDate
+    ? new Date(formData.moveDate).toLocaleDateString()
+    : "";
 
   return (
     <>
-      <section id="quote" className="py-24 bg-gradient-to-br from-orange-50 via-white to-orange-50">
+      <section
+        id="quote"
+        className="py-24 bg-gradient-to-br from-orange-50 via-white to-orange-50"
+      >
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h3 className="text-5xl font-bold text-gray-800 mb-6">
               Get Your Free Quote
             </h3>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Ready to move? Get a personalized quote in minutes. Just tell us your name and we'll take care of the rest!
+              Ready to move? Get a personalized quote in minutes. Just tell us
+              your name and we&apos;ll take care of the rest!
             </p>
           </div>
-          
+
           <div className="max-w-2xl mx-auto bg-white p-10 rounded-2xl shadow-2xl border border-orange-100">
             <form onSubmit={handleSubmit} className="space-y-8">
               <div>
@@ -332,11 +411,23 @@ export default function QuoteSection() {
                   onClick={() => setShowDatePicker(true)}
                   className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all bg-white text-left flex items-center justify-between hover:bg-gray-50 text-lg"
                 >
-                  <span className={displayDate ? 'text-gray-900' : 'text-gray-500'}>
-                    {displayDate || 'Select your preferred moving date'}
+                  <span
+                    className={displayDate ? "text-gray-900" : "text-gray-500"}
+                  >
+                    {displayDate || "Select your preferred moving date"}
                   </span>
-                  <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  <svg
+                    className="w-6 h-6 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
                   </svg>
                 </button>
               </div>
@@ -360,11 +451,12 @@ export default function QuoteSection() {
                 disabled={isSubmitting}
                 className="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white font-bold py-5 rounded-xl hover:from-orange-500 hover:to-orange-600 transition-all shadow-lg text-xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
               >
-                {isSubmitting ? 'Submitting...' : 'Get My Free Quote'}
+                {isSubmitting ? "Submitting..." : "Get My Free Quote"}
               </button>
 
               <p className="text-center text-gray-500 text-sm mt-4">
-                * Only your name is required. We'll contact you to gather additional details.
+                * Only your name is required. We&apos;ll contact you to gather
+                additional details.
               </p>
             </form>
           </div>
@@ -378,10 +470,7 @@ export default function QuoteSection() {
         selectedDate={formData.moveDate}
       />
 
-      <SuccessModal 
-        isOpen={showSuccessModal}
-        onClose={closeModal}
-      />
+      <SuccessModal isOpen={showSuccessModal} onClose={closeModal} />
     </>
   );
 }
