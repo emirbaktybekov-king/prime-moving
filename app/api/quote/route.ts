@@ -4,12 +4,12 @@ import { prisma } from '@/lib/prisma'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, email, phone, fromAddress, toAddress, moveDate, message } = body
+    const { name, email, phone, moveDate, message } = body
 
-    // Validate required fields
-    if (!name || !email || !phone || !fromAddress || !toAddress || !moveDate) {
+    // Validate required fields - only name is required
+    if (!name || name.trim() === '') {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: 'Name is required' },
         { status: 400 }
       )
     }
@@ -17,13 +17,11 @@ export async function POST(request: NextRequest) {
     // Create quote in database
     const quote = await prisma.quote.create({
       data: {
-        name,
-        email,
-        phone,
-        fromAddress,
-        toAddress,
-        moveDate: new Date(moveDate),
-        message: message || null,
+        name: name.trim(),
+        email: email && email.trim() !== '' ? email.trim() : null,
+        phone: phone && phone.trim() !== '' ? phone.trim() : null,
+        moveDate: moveDate ? new Date(moveDate) : null,
+        message: message && message.trim() !== '' ? message.trim() : null,
       },
     })
 

@@ -14,11 +14,11 @@ datasource db {
 model Quote {
   id          String   @id @default(cuid())
   name        String
-  email       String
-  phone       String
-  fromAddress String
-  toAddress   String
-  moveDate    DateTime
+  email       String?
+  phone       String?
+  fromAddress String?
+  toAddress   String?
+  moveDate    DateTime?
   message     String?
   status      QuoteStatus @default(NEW)
   createdAt   DateTime @default(now())

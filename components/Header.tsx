@@ -1,223 +1,222 @@
-"use client";
 
-import Image from "next/image";
-import { useState } from "react";
+'use client';
+import { useState, useEffect } from 'react';
 import { useTranslation } from "@/hooks/useTranslation";
 
-interface HeaderProps {
-  smoothScrollTo: (elementId: string) => void;
-}
+export default function Header() {
+  const { t, locale, setLocale } = useTranslation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-export default function Header({ smoothScrollTo }: HeaderProps) {
-  const { t, language, changeLanguage } = useTranslation();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
 
-  const languages = [
-    { code: "en", name: "English", flag: "🇺🇸" },
-    { code: "es", name: "Español", flag: "🇪🇸" },
-    { code: "ru", name: "Русский", flag: "🇷🇺" },
-  ];
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const currentLanguage = languages.find((lang) => lang.code === language) || languages[0];
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+    closeMenu();
+  };
 
   return (
     <>
-      <header className="bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg fixed w-full top-0 z-50">
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-white/95 backdrop-blur-lg shadow-lg' 
+          : 'bg-transparent'
+      }`}>
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex justify-between items-center py-4">
             {/* Logo */}
             <div className="flex items-center">
-              <Image
-                src="/primeMovingHeaderLogo.svg"
-                alt="Prime Move Logo"
-                width={120}
-                height={40}
-                className="h-10 w-auto cursor-pointer"
-                onClick={() => smoothScrollTo("hero")}
-              />
+              <span className={`text-2xl font-bold transition-colors ${
+                isScrolled ? 'text-orange-600' : 'text-white'
+              }`}>
+                🚚 Prime Moving
+              </span>
             </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <button
-                onClick={() => smoothScrollTo("about")}
-                className="hover:text-orange-100 transition-colors font-medium"
+              <button 
+                onClick={() => scrollToSection('home')}
+                className={`font-medium transition-colors hover:text-orange-400 ${
+                  isScrolled ? 'text-gray-700' : 'text-white'
+                }`}
               >
-                {t("nav.about")}
+                {t('nav.home') || 'Home'}
               </button>
-              <button
-                onClick={() => smoothScrollTo("why-us")}
-                className="hover:text-orange-100 transition-colors font-medium"
+              <button 
+                onClick={() => scrollToSection('services')}
+                className={`font-medium transition-colors hover:text-orange-400 ${
+                  isScrolled ? 'text-gray-700' : 'text-white'
+                }`}
               >
-                {t("nav.whyUs")}
+                {t('nav.services') || 'Services'}
               </button>
-              <button
-                onClick={() => smoothScrollTo("services")}
-                className="hover:text-orange-100 transition-colors font-medium"
+              <button 
+                onClick={() => scrollToSection('about')}
+                className={`font-medium transition-colors hover:text-orange-400 ${
+                  isScrolled ? 'text-gray-700' : 'text-white'
+                }`}
               >
-                {t("nav.services")}
+                {t('nav.about') || 'About'}
               </button>
+              <button 
+                onClick={() => scrollToSection('quote')}
+                className="bg-orange-500 text-white px-6 py-2 rounded-full font-medium hover:bg-orange-600 transition-colors shadow-lg"
+              >
+                {t('nav.quote') || 'Get Quote'}
+              </button>
+              
+              {/* Language Selector */}
+              <select
+                value={locale}
+                onChange={(e) => setLocale(e.target.value)}
+                className={`px-3 py-1 rounded border transition-colors ${
+                  isScrolled 
+                    ? 'bg-white border-gray-300 text-gray-700' 
+                    : 'bg-white/20 border-white/30 text-white backdrop-blur-sm'
+                }`}
+              >
+                <option value="en">🇺🇸 EN</option>
+                <option value="es">🇪🇸 ES</option>
+                <option value="ru">🇷🇺 RU</option>
+              </select>
             </nav>
 
-            {/* Desktop Language Selector & CTA */}
-            <div className="hidden md:flex items-center space-x-4">
-              <div className="relative">
-                <button
-                  onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
-                  className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
-                  aria-label="Select language"
-                >
-                  <span>{currentLanguage.flag}</span>
-                  <span className="text-sm font-medium">{currentLanguage.code.toUpperCase()}</span>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-
-                {isLanguageDropdownOpen && (
-                  <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
-                    {languages.map((lang) => (
-                      <button
-                        key={lang.code}
-                        onClick={() => {
-                          changeLanguage(lang.code);
-                          setIsLanguageDropdownOpen(false);
-                        }}
-                        className={`w-full text-left px-4 py-2 text-gray-800 hover:bg-orange-50 transition-colors flex items-center space-x-3 ${
-                          language === lang.code ? "bg-orange-100 font-medium" : ""
-                        }`}
-                      >
-                        <span>{lang.flag}</span>
-                        <span>{lang.name}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <button
-                onClick={() => smoothScrollTo("quote")}
-                className="bg-white text-orange-600 px-6 py-2 rounded-lg hover:bg-orange-50 transition-colors font-semibold shadow-md"
-              >
-                {t("nav.contactNow")}
-              </button>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden text-white hover:text-orange-100 focus:outline-none"
-              aria-label="Toggle mobile menu"
+            {/* Mobile Hamburger */}
+            <button 
+              onClick={toggleMenu}
+              className={`md:hidden p-2 transition-colors ${
+                isScrolled ? 'text-gray-700' : 'text-white'
+              }`}
+              aria-label="Toggle menu"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {isMobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
+              <div className="w-6 h-6 relative">
+                <span className={`block absolute h-0.5 w-6 bg-current transform transition duration-300 ease-in-out ${
+                  isMenuOpen ? 'rotate-45 translate-y-2.5' : '-translate-y-1'
+                }`} />
+                <span className={`block absolute h-0.5 w-6 bg-current transform transition duration-300 ease-in-out ${
+                  isMenuOpen ? 'opacity-0' : 'translate-y-1'
+                }`} />
+                <span className={`block absolute h-0.5 w-6 bg-current transform transition duration-300 ease-in-out ${
+                  isMenuOpen ? '-rotate-45 translate-y-2.5' : 'translate-y-3'
+                }`} />
+              </div>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Menu Drawer */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-50 md:hidden">
-          {/* Backdrop */}
-          <div 
-            className="fixed inset-0 bg-black bg-opacity-50" 
-            onClick={() => setIsMobileMenuOpen(false)}
-          ></div>
+      {/* Mobile Drawer Menu */}
+      <div className={`fixed inset-0 z-40 transition-opacity duration-300 ${
+        isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+      }`}>
+        {/* Backdrop */}
+        <div 
+          className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+          onClick={closeMenu}
+        />
 
-          {/* Drawer */}
-          <div className="fixed right-0 top-0 h-full w-80 bg-white shadow-xl transform transition-transform duration-300 ease-in-out">
-            <div className="flex flex-col h-full">
-              {/* Close button */}
-              <div className="flex justify-end p-4">
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-gray-600 hover:text-gray-800 p-2"
-                  aria-label="Close mobile menu"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
+        {/* Drawer */}
+        <div className={`absolute top-0 right-0 h-full w-80 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out ${
+          isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}>
+          <div className="flex flex-col h-full">
+            {/* Header */}
+            <div className="flex justify-between items-center p-6 border-b border-gray-200">
+              <span className="text-2xl font-bold text-orange-600">
+                🚚 Prime Moving
+              </span>
+              <button 
+                onClick={closeMenu}
+                className="p-2 text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
 
-              {/* Navigation */}
-              <nav className="flex-1 px-4 space-y-4">
-                <button
-                  onClick={() => {
-                    smoothScrollTo("about");
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="block w-full text-left px-4 py-3 text-gray-800 hover:bg-orange-50 hover:text-orange-600 rounded-lg transition-colors font-medium"
-                >
-                  {t("nav.about")}
-                </button>
-                <button
-                  onClick={() => {
-                    smoothScrollTo("why-us");
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="block w-full text-left px-4 py-3 text-gray-800 hover:bg-orange-50 hover:text-orange-600 rounded-lg transition-colors font-medium"
-                >
-                  {t("nav.whyUs")}
-                </button>
-                <button
-                  onClick={() => {
-                    smoothScrollTo("services");
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="block w-full text-left px-4 py-3 text-gray-800 hover:bg-orange-50 hover:text-orange-600 rounded-lg transition-colors font-medium"
-                >
-                  {t("nav.services")}
-                </button>
-
-                {/* Language Selector */}
-                <div className="pt-4 border-t border-gray-200">
-                  <div className="text-sm text-gray-600 mb-3 px-4">{t("nav.language")}:</div>
-                  <div className="space-y-2">
-                    {languages.map((lang) => (
-                      <button
-                        key={lang.code}
-                        onClick={() => {
-                          changeLanguage(lang.code);
-                          setIsMobileMenuOpen(false);
-                        }}
-                        className={`w-full text-left px-4 py-2 rounded-lg transition-colors flex items-center space-x-3 ${
-                          language === lang.code 
-                            ? "bg-orange-100 text-orange-600 font-medium" 
-                            : "text-gray-800 hover:bg-orange-50"
-                        }`}
-                      >
-                        <span>{lang.flag}</span>
-                        <span>{lang.name}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Contact Button */}
-                <div className="pt-4">
-                  <button
-                    onClick={() => {
-                      smoothScrollTo("quote");
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all font-semibold shadow-lg"
+            {/* Navigation Links */}
+            <nav className="flex-1 px-6 py-8">
+              <ul className="space-y-6">
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('home')}
+                    className="w-full text-left text-lg font-medium text-gray-700 hover:text-orange-600 transition-colors py-3 border-b border-transparent hover:border-orange-200"
                   >
-                    {t("nav.contactNow")}
+                    🏠 {t('nav.home') || 'Home'}
                   </button>
-                </div>
-              </nav>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('services')}
+                    className="w-full text-left text-lg font-medium text-gray-700 hover:text-orange-600 transition-colors py-3 border-b border-transparent hover:border-orange-200"
+                  >
+                    🔧 {t('nav.services') || 'Services'}
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('about')}
+                    className="w-full text-left text-lg font-medium text-gray-700 hover:text-orange-600 transition-colors py-3 border-b border-transparent hover:border-orange-200"
+                  >
+                    ℹ️ {t('nav.about') || 'About'}
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('quote')}
+                    className="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white font-bold py-4 px-6 rounded-xl text-lg hover:from-orange-500 hover:to-orange-600 transition-all shadow-lg transform hover:scale-105"
+                  >
+                    📋 {t('nav.quote') || 'Get Free Quote'}
+                  </button>
+                </li>
+              </ul>
+            </nav>
+
+            {/* Language Selector */}
+            <div className="px-6 py-6 border-t border-gray-200">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Language
+              </label>
+              <select
+                value={locale}
+                onChange={(e) => setLocale(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+              >
+                <option value="en">🇺🇸 English</option>
+                <option value="es">🇪🇸 Español</option>
+                <option value="ru">🇷🇺 Русский</option>
+              </select>
+            </div>
+
+            {/* Contact Info */}
+            <div className="px-6 py-6 bg-gray-50">
+              <h3 className="font-bold text-gray-800 mb-2">Contact Us</h3>
+              <p className="text-sm text-gray-600 mb-1">📞 (555) 123-4567</p>
+              <p className="text-sm text-gray-600">📧 info@primemoving.com</p>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 }
