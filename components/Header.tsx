@@ -8,13 +8,13 @@ interface HeaderProps {
   smoothScrollTo: (elementId: string) => void;
 }
 
-const flagMap = {
+const flagMap: Record<string, string> = {
   en: "🇺🇸",
   es: "🇪🇸",
   ru: "🇷🇺",
 };
 
-const languageNames = {
+const languageNames: Record<string, string> = {
   en: "English",
   es: "Español",
   ru: "Русский",
@@ -48,10 +48,17 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
     closeMenu();
   };
 
+  const handleLocaleChange = (newLocale: string) => {
+    setLocale(newLocale as "en" | "es" | "ru");
+    setIsLanguageOpen(false);
+  };
+
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-orange-500`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-orange-500 ${
+          isScrolled ? "shadow-lg" : ""
+        }`}
       >
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-3">
@@ -93,15 +100,49 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
                 {t("nav.quote")}
               </button>
 
-              {/* Language Selector */}
+              {/* Language Selector (Desktop) */}
               <div className="relative">
                 <button
                   onClick={() => setIsLanguageOpen(!isLanguageOpen)}
                   className="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-600 hover:border-gray-400 transition-colors bg-orange-600 text-white"
+                  aria-label="Toggle language selector"
                 >
-                  <span>{flagMap[locale]}</span>
-                  <span>{languageNames[locale]}</span>
+                  <span>{flagMap[locale] || "🌐"}</span>
+                  <span>{languageNames[locale] || "Language"}</span>
+                  <svg
+                    className={`w-4 h-4 transform transition-transform ${
+                      isLanguageOpen ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
                 </button>
+                {isLanguageOpen && (
+                  <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50">
+                    {Object.entries(languageNames).map(([code, name]) => (
+                      <button
+                        key={code}
+                        onClick={() => handleLocaleChange(code)}
+                        className={`w-full flex items-center space-x-3 px-4 py-2 text-left text-sm transition-colors ${
+                          locale === code
+                            ? "bg-orange-50 text-orange-600"
+                            : "text-gray-700 hover:bg-gray-50"
+                        }`}
+                      >
+                        <span className="text-lg">{flagMap[code]}</span>
+                        <span className="font-medium">{name}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             </nav>
 
@@ -192,7 +233,7 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
               </ul>
             </nav>
 
-            {/* Language Selector */}
+            {/* Language Selector (Mobile) */}
             <div className="px-6 py-4 border-t border-gray-200">
               <h3 className="text-sm font-medium text-gray-700 mb-3">
                 {t("nav.language")}
@@ -201,9 +242,7 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
                 {Object.entries(languageNames).map(([code, name]) => (
                   <button
                     key={code}
-                    onClick={() =>
-                      setLocale(code as keyof typeof languageNames)
-                    }
+                    onClick={() => handleLocaleChange(code)}
                     className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
                       locale === code
                         ? "bg-orange-50 text-orange-600"
