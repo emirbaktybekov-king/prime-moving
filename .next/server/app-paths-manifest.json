@@ -1,3 +1,10 @@
 {
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/admin/page": "app/admin/page.js",
+  "/api/admin/me/route": "app/api/admin/me/route.js",
+  "/admin/dashboard/page": "app/admin/dashboard/page.js",
+  "/api/admin/quotes/route": "app/api/admin/quotes/route.js",
+  "/api/admin/pending-admins/route": "app/api/admin/pending-admins/route.js",
+  "/api/quote/route": "app/api/quote/route.js"
 }
