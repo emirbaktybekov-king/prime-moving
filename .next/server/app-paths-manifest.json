@@ -1,13 +1,4 @@
 {
   "/page": "app/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/api/quote/route": "app/api/quote/route.js",
-  "/admin/page": "app/admin/page.js",
-  "/api/admin/login/route": "app/api/admin/login/route.js",
-  "/admin/dashboard/page": "app/admin/dashboard/page.js",
-  "/api/admin/me/route": "app/api/admin/me/route.js",
-  "/api/admin/quotes/route": "app/api/admin/quotes/route.js",
-  "/api/admin/pending-admins/route": "app/api/admin/pending-admins/route.js",
-  "/api/admin/update-quote-status/route": "app/api/admin/update-quote-status/route.js",
-  "/api/admin/logout/route": "app/api/admin/logout/route.js"
+  "/favicon.ico/route": "app/favicon.ico/route.js"
 }
