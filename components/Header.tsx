@@ -2,6 +2,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useTranslation } from "@/hooks/useTranslation";
+import Image from 'next/image';
 
 const flagMap = {
   en: '🇺🇸',
@@ -50,63 +51,64 @@ export default function Header() {
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-white/98 backdrop-blur-md shadow-lg border-b border-orange-100' 
-          : 'bg-white/95 backdrop-blur-sm shadow-md'
+          ? 'bg-gray-900/98 backdrop-blur-md shadow-lg border-b border-gray-700' 
+          : 'bg-gray-900/95 backdrop-blur-sm shadow-md'
       }`}>
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-3">
             {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">P</span>
-              </div>
-              <span className="text-2xl font-bold text-gray-800">
-                Prime Moving
-              </span>
+            <div className="flex items-center">
+              <Image
+                src="/primeMovingHeaderLogo.svg"
+                alt="Prime Moving Logo"
+                width={120}
+                height={40}
+                className="h-10 w-auto"
+              />
             </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               <button 
                 onClick={() => scrollToSection('about')}
-                className="font-medium text-gray-700 hover:text-orange-600 transition-colors"
+                className="font-medium text-gray-100 hover:text-orange-400 transition-colors"
               >
-                About
+                {t('nav.about')}
               </button>
               <button 
                 onClick={() => scrollToSection('why-us')}
-                className="font-medium text-gray-700 hover:text-orange-600 transition-colors"
+                className="font-medium text-gray-100 hover:text-orange-400 transition-colors"
               >
-                Why Us
+                {t('nav.whyUs')}
               </button>
               <button 
                 onClick={() => scrollToSection('services')}
-                className="font-medium text-gray-700 hover:text-orange-600 transition-colors"
+                className="font-medium text-gray-100 hover:text-orange-400 transition-colors"
               >
-                Services
+                {t('nav.services')}
               </button>
               <button 
                 onClick={() => scrollToSection('quote')}
                 className="bg-orange-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-orange-600 transition-colors shadow-md"
               >
-                Get Quote
+                {t('nav.quote')}
               </button>
               
               {/* Language Selector */}
               <div className="relative">
                 <button
                   onClick={() => setIsLanguageOpen(!isLanguageOpen)}
-                  className="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-300 hover:border-orange-400 transition-colors"
+                  className="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-600 hover:border-orange-400 transition-colors bg-gray-800"
                 >
                   <span className="text-lg">{flagMap[locale]}</span>
-                  <span className="text-sm font-medium text-gray-700">{languageNames[locale]}</span>
-                  <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span className="text-sm font-medium text-gray-100">{languageNames[locale]}</span>
+                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
                 
                 {isLanguageOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
+                  <div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-xl border border-gray-600 z-50">
                     {Object.entries(languageNames).map(([code, name]) => (
                       <button
                         key={code}
@@ -114,8 +116,8 @@ export default function Header() {
                           setLocale(code);
                           setIsLanguageOpen(false);
                         }}
-                        className={`w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-orange-50 transition-colors ${
-                          locale === code ? 'bg-orange-50 text-orange-600' : 'text-gray-700'
+                        className={`w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-gray-700 transition-colors ${
+                          locale === code ? 'bg-orange-500 text-white' : 'text-gray-100'
                         }`}
                       >
                         <span className="text-lg">{flagMap[code]}</span>
@@ -130,7 +132,7 @@ export default function Header() {
             {/* Mobile Hamburger */}
             <button 
               onClick={toggleMenu}
-              className="md:hidden p-2 text-gray-700 hover:text-orange-600 transition-colors"
+              className="md:hidden p-2 text-gray-100 hover:text-orange-400 transition-colors"
               aria-label="Toggle menu"
             >
               <div className="w-6 h-6 relative">
@@ -160,28 +162,10 @@ export default function Header() {
         />
 
         {/* Drawer */}
-        <div className={`absolute top-0 right-0 h-full w-80 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out ${
+        <div className={`absolute top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}>
           <div className="flex flex-col h-full">
-            {/* Header */}
-            <div className="flex justify-between items-center p-6 border-b border-gray-200">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold">P</span>
-                </div>
-                <span className="text-xl font-bold text-gray-800">Prime Moving</span>
-              </div>
-              <button 
-                onClick={closeMenu}
-                className="p-2 text-gray-500 hover:text-gray-700 transition-colors"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
             {/* Navigation Links */}
             <nav className="flex-1 px-6 py-8">
               <ul className="space-y-4">
@@ -190,7 +174,7 @@ export default function Header() {
                     onClick={() => scrollToSection('about')}
                     className="w-full text-left text-lg font-medium text-gray-700 hover:text-orange-600 transition-colors py-3"
                   >
-                    About
+                    {t('nav.about')}
                   </button>
                 </li>
                 <li>
@@ -198,7 +182,7 @@ export default function Header() {
                     onClick={() => scrollToSection('why-us')}
                     className="w-full text-left text-lg font-medium text-gray-700 hover:text-orange-600 transition-colors py-3"
                   >
-                    Why Us
+                    {t('nav.whyUs')}
                   </button>
                 </li>
                 <li>
@@ -206,7 +190,7 @@ export default function Header() {
                     onClick={() => scrollToSection('services')}
                     className="w-full text-left text-lg font-medium text-gray-700 hover:text-orange-600 transition-colors py-3"
                   >
-                    Services
+                    {t('nav.services')}
                   </button>
                 </li>
                 <li>
@@ -214,7 +198,7 @@ export default function Header() {
                     onClick={() => scrollToSection('quote')}
                     className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-4 px-6 rounded-lg text-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg"
                   >
-                    Get Free Quote
+                    {t('nav.quote')}
                   </button>
                 </li>
               </ul>
@@ -222,7 +206,7 @@ export default function Header() {
 
             {/* Language Selector */}
             <div className="px-6 py-4 border-t border-gray-200">
-              <h3 className="text-sm font-medium text-gray-700 mb-3">Language</h3>
+              <h3 className="text-sm font-medium text-gray-700 mb-3">{t('nav.language')}</h3>
               <div className="space-y-2">
                 {Object.entries(languageNames).map(([code, name]) => (
                   <button

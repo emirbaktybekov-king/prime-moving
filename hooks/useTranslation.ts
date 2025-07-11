@@ -24,12 +24,10 @@ export const useTranslation = () => {
     return value || key;
   };
 
-  const changeLanguage = (lang: Language) => {
+  const setLocale = (lang: Language) => {
     setLanguage(lang);
     localStorage.setItem('language', lang);
-    // Force page refresh to update all translations
-    window.location.reload();
   };
 
-  return { t, language, changeLanguage };
+  return { t, locale: language, setLocale };
 };
