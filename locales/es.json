@@ -1,0 +1,86 @@
+
+{
+  "nav": {
+    "about": "Acerca de",
+    "whyUs": "Por Qué Nosotros",
+    "services": "Servicios",
+    "contactNow": "Contactar Ahora",
+    "language": "Idioma"
+  },
+  "hero": {
+    "title": "Mudadores Profesionales en los que Puedes Confiar",
+    "subtitle": "Tu socio confiable para mudanzas locales y de larga distancia. Manejamos tus pertenencias con cuidado y precisión.",
+    "getFreeQuote": "Obtener Cotización Gratis",
+    "viewServices": "Ver Servicios"
+  },
+  "about": {
+    "title": "Acerca de Prime Move",
+    "story": "Historia",
+    "impact": "Impacto",
+    "mission": "Misión",
+    "storyContent": "Con años de experiencia en la industria de mudanzas, Prime Move se ha establecido como un socio confiable para familias y empresas. Entendemos que mudarse puede ser estresante, por eso estamos comprometidos a hacer tu reubicación lo más fluida y sin complicaciones posible.",
+    "impactContent": "Hemos completado exitosamente más de 10,000 mudanzas, ayudando a familias y empresas a hacer la transición a sus nuevos espacios con confianza. Nuestro historial habla por sí mismo: 99% de satisfacción del cliente y cero reclamos por daños en el último año.",
+    "missionContent": "Nuestra misión es proporcionar servicios de mudanza excepcionales que superen las expectativas. Creemos que cada mudanza es un nuevo comienzo, y estamos aquí para hacer esa transición lo más fluida posible para nuestros clientes."
+  },
+  "whyUs": {
+    "title": "¿Por Qué Elegir Prime Move?",
+    "licensed": "Licenciado y Asegurado",
+    "licensedDesc": "Completamente licenciado y asegurado para tu tranquilidad.",
+    "experienced": "Equipo Experimentado",
+    "experiencedDesc": "Mudadores profesionales con años de experiencia.",
+    "transparent": "Precios Transparentes",
+    "transparentDesc": "Sin tarifas ocultas, precios por adelantado en los que puedes confiar.",
+    "ctaTitle": "¡Obtén tu Cotización Gratis Hoy!",
+    "ctaDesc": "Contáctanos para una estimación de mudanza personalizada.",
+    "requestQuote": "Solicitar Cotización"
+  },
+  "services": {
+    "title": "Nuestros Servicios",
+    "residential": "Mudanza Residencial",
+    "residentialDesc": "Servicios completos de mudanza de hogar con empaque y desempaque profesional.",
+    "commercial": "Mudanza Comercial",
+    "commercialDesc": "Reubicaciones de oficina con tiempo de inactividad mínimo y máxima eficiencia.",
+    "packing": "Servicios de Empaque",
+    "packingDesc": "Empaque profesional con materiales de alta calidad y manejo cuidadoso."
+  },
+  "quote": {
+    "title": "Obtén tu Cotización Gratis",
+    "fullName": "Nombre Completo",
+    "email": "Correo Electrónico",
+    "phone": "Número de Teléfono",
+    "moveDate": "Fecha de tu Mudanza",
+    "message": "Información Adicional",
+    "messagePlaceholder": "Cuéntanos sobre tus necesidades de mudanza...",
+    "submit": "Obtener Cotización Gratis",
+    "selectDate": "Seleccionar fecha...",
+    "previousMonth": "Mes anterior",
+    "nextMonth": "Mes siguiente"
+  },
+  "modal": {
+    "thankYou": "¡Gracias!",
+    "message": "¡Gracias! Nuestro representante te contactará pronto.",
+    "close": "Cerrar"
+  },
+  "footer": {
+    "tagline": "Tu socio confiable de mudanzas para una experiencia de reubicación sin problemas.",
+    "services": "Servicios",
+    "residential": "Mudanza Residencial",
+    "commercial": "Mudanza Comercial",
+    "packing": "Servicios de Empaque",
+    "storage": "Soluciones de Almacenamiento",
+    "contact": "Contacto",
+    "hours": "Horarios",
+    "hoursMonFri": "Lun-Vie: 7AM-7PM",
+    "hoursSat": "Sábado: 8AM-6PM",
+    "hoursSun": "Domingo: 9AM-5PM",
+    "phone": "(555) 123-4567",
+    "email": "info@primemove.com",
+    "address": "123 Moving St, City, State",
+    "copyright": "© 2024 Prime Move. Todos los derechos reservados."
+  },
+  "calendar": {
+    "months": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+    "daysShort": ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+    "today": "Hoy"
+  }
+}

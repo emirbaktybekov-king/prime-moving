@@ -1,0 +1,86 @@
+
+{
+  "nav": {
+    "about": "About",
+    "whyUs": "Why Us",
+    "services": "Services",
+    "contactNow": "Contact Now",
+    "language": "Language"
+  },
+  "hero": {
+    "title": "Professional Movers You Can Trust",
+    "subtitle": "Your reliable partner for local and long-distance moves. We handle your belongings with care and precision.",
+    "getFreeQuote": "Get Free Quote",
+    "viewServices": "View Services"
+  },
+  "about": {
+    "title": "About Prime Move",
+    "story": "Story",
+    "impact": "Impact",
+    "mission": "Mission",
+    "storyContent": "With years of experience in the moving industry, Prime Move has established itself as a trusted partner for families and businesses. We understand that moving can be stressful, which is why we're committed to making your relocation as smooth and hassle-free as possible.",
+    "impactContent": "We've successfully completed over 10,000 moves, helping families and businesses transition to their new spaces with confidence. Our track record speaks for itself - 99% customer satisfaction rate and zero damage claims in the past year.",
+    "missionContent": "Our mission is to provide exceptional moving services that exceed expectations. We believe every move is a new beginning, and we're here to make that transition as seamless as possible for our clients."
+  },
+  "whyUs": {
+    "title": "Why Choose Prime Move?",
+    "licensed": "Licensed & Insured",
+    "licensedDesc": "Fully licensed and insured for your peace of mind.",
+    "experienced": "Experienced Team",
+    "experiencedDesc": "Professional movers with years of experience.",
+    "transparent": "Transparent Pricing",
+    "transparentDesc": "No hidden fees, upfront pricing you can trust.",
+    "ctaTitle": "Get Your Free Quote Today!",
+    "ctaDesc": "Contact us for a personalized moving estimate.",
+    "requestQuote": "Request Quote"
+  },
+  "services": {
+    "title": "Our Services",
+    "residential": "Residential Moving",
+    "residentialDesc": "Complete home moving services with professional packing and unpacking.",
+    "commercial": "Commercial Moving",
+    "commercialDesc": "Office relocations with minimal downtime and maximum efficiency.",
+    "packing": "Packing Services",
+    "packingDesc": "Professional packing with high-quality materials and careful handling."
+  },
+  "quote": {
+    "title": "Get Your Free Quote",
+    "fullName": "Full Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "moveDate": "Your Moving Date",
+    "message": "Additional Information",
+    "messagePlaceholder": "Tell us about your moving needs...",
+    "submit": "Get Free Quote",
+    "selectDate": "Select date...",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month"
+  },
+  "modal": {
+    "thankYou": "Thank You!",
+    "message": "Thanks! Our representative will contact you soon!",
+    "close": "Close"
+  },
+  "footer": {
+    "tagline": "Your trusted moving partner for a seamless relocation experience.",
+    "services": "Services",
+    "residential": "Residential Moving",
+    "commercial": "Commercial Moving",
+    "packing": "Packing Services",
+    "storage": "Storage Solutions",
+    "contact": "Contact",
+    "hours": "Hours",
+    "hoursMonFri": "Mon-Fri: 7AM-7PM",
+    "hoursSat": "Saturday: 8AM-6PM",
+    "hoursSun": "Sunday: 9AM-5PM",
+    "phone": "(555) 123-4567",
+    "email": "info@primemove.com",
+    "address": "123 Moving St, City, State",
+    "copyright": "© 2024 Prime Move. All rights reserved."
+  },
+  "calendar": {
+    "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    "daysShort": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+    "today": "Today"
+  }
+}
