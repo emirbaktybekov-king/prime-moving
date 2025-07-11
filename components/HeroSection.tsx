@@ -13,7 +13,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
@@ -28,35 +28,35 @@ export default function HeroSection() {
       <div className="absolute bottom-20 right-40 w-14 h-14 bg-white bg-opacity-20 rounded-full animate-bounce" style={{animationDelay: '0.5s', animationDuration: '3.5s'}} />
 
       <div className="container mx-auto px-4 text-center text-white relative z-10">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           {/* Badge */}
-          <div className="inline-flex items-center px-6 py-3 bg-white bg-opacity-20 backdrop-blur-sm rounded-full text-white font-medium mb-8 animate-fade-in">
+          <div className="inline-flex items-center px-4 py-2 bg-white bg-opacity-20 backdrop-blur-sm rounded-full text-white font-medium mb-6 animate-fade-in">
             <span className="mr-2">⭐</span>
             Trusted by 1000+ Happy Customers
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight animate-slide-up">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-slide-up">
             <span className="block text-white drop-shadow-lg">
-              {t('hero.title') || 'Your Moving'}
+              Professional Moving
             </span>
             <span className="block text-yellow-200 drop-shadow-lg">
-              {t('hero.subtitle') || 'Experts'}
+              Services You Can Trust
             </span>
           </h1>
 
           {/* Description */}
-          <p className="text-xl md:text-2xl lg:text-3xl text-orange-100 mb-12 max-w-4xl mx-auto leading-relaxed font-light animate-slide-up" style={{animationDelay: '0.2s'}}>
-            {t('hero.description') || 'Professional, reliable, and stress-free moving services. We handle your belongings with care, so you can focus on your new beginning.'}
+          <p className="text-lg md:text-xl text-orange-100 mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up" style={{animationDelay: '0.2s'}}>
+            We handle your belongings with care and precision. From local moves to long-distance relocations, we make your moving experience stress-free and efficient.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up" style={{animationDelay: '0.4s'}}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up" style={{animationDelay: '0.4s'}}>
             <button
               onClick={scrollToQuote}
-              className="bg-white text-orange-600 font-bold py-5 px-10 rounded-full text-xl hover:bg-orange-50 transition-all shadow-2xl transform hover:scale-105 hover:shadow-3xl"
+              className="bg-white text-orange-600 font-bold py-3 px-8 rounded-lg text-lg hover:bg-orange-50 transition-all shadow-lg transform hover:scale-105"
             >
-              🚚 Get Free Quote
+              Get Free Quote
             </button>
             <button
               onClick={() => {
@@ -65,28 +65,28 @@ export default function HeroSection() {
                   servicesSection.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="border-2 border-white text-white font-bold py-5 px-10 rounded-full text-xl hover:bg-white hover:text-orange-600 transition-all shadow-lg transform hover:scale-105"
+              className="border-2 border-white text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-white hover:text-orange-600 transition-all transform hover:scale-105"
             >
-              📋 Our Services
+              Our Services
             </button>
           </div>
 
           {/* Trust Indicators */}
-          <div className="mt-16 flex flex-wrap justify-center items-center gap-8 text-orange-100 animate-fade-in" style={{animationDelay: '0.6s'}}>
+          <div className="mt-12 flex flex-wrap justify-center items-center gap-6 text-orange-100 animate-fade-in" style={{animationDelay: '0.6s'}}>
             <div className="flex items-center">
-              <span className="text-2xl mr-2">🛡️</span>
+              <span className="text-xl mr-2">🛡️</span>
               <span className="font-medium">Fully Insured</span>
             </div>
             <div className="flex items-center">
-              <span className="text-2xl mr-2">⚡</span>
+              <span className="text-xl mr-2">⚡</span>
               <span className="font-medium">Same Day Service</span>
             </div>
             <div className="flex items-center">
-              <span className="text-2xl mr-2">💯</span>
+              <span className="text-xl mr-2">💯</span>
               <span className="font-medium">100% Satisfaction</span>
             </div>
             <div className="flex items-center">
-              <span className="text-2xl mr-2">📞</span>
+              <span className="text-xl mr-2">📞</span>
               <span className="font-medium">24/7 Support</span>
             </div>
           </div>

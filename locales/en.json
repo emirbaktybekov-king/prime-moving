@@ -1,15 +1,18 @@
 
 {
   "nav": {
+    "home": "Home",
     "about": "About",
     "whyUs": "Why Us",
     "services": "Services",
     "contactNow": "Contact Now",
+    "quote": "Get Quote",
     "language": "Language"
   },
   "hero": {
-    "title": "Professional Movers You Can Trust",
+    "title": "Professional Moving Services You Can Trust",
     "subtitle": "Your reliable partner for local and long-distance moves. We handle your belongings with care and precision.",
+    "description": "We handle your belongings with care and precision. From local moves to long-distance relocations, we make your moving experience stress-free and efficient.",
     "getFreeQuote": "Get Free Quote",
     "viewServices": "View Services"
   },

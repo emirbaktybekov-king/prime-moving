@@ -42,6 +42,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL');
+  const [selectedQuotes, setSelectedQuotes] = useState<string[]>([]);
   const [quoteStats, setQuoteStats] = useState<QuoteStats>({
     total: 0,
     new: 0,
@@ -153,6 +154,72 @@ export default function AdminDashboard() {
     }
   };
 
+  const deleteQuote = async (quoteId: string) => {
+    if (!confirm('Are you sure you want to delete this quote?')) return;
+    
+    try {
+      const response = await fetch(`/api/admin/quotes/${quoteId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        fetchQuotes();
+        setSelectedQuotes(selectedQuotes.filter(id => id !== quoteId));
+      }
+    } catch (error) {
+      console.error('Error deleting quote:', error);
+    }
+  };
+
+  const handleBulkAction = async (action: string) => {
+    if (selectedQuotes.length === 0) return;
+
+    if (action === 'delete') {
+      if (!confirm(`Are you sure you want to delete ${selectedQuotes.length} quotes?`)) return;
+      
+      try {
+        await Promise.all(selectedQuotes.map(id => 
+          fetch(`/api/admin/quotes/${id}`, { method: 'DELETE' })
+        ));
+        fetchQuotes();
+        setSelectedQuotes([]);
+      } catch (error) {
+        console.error('Error deleting quotes:', error);
+      }
+    } else {
+      // Status update
+      try {
+        await Promise.all(selectedQuotes.map(id => 
+          fetch('/api/admin/update-quote-status', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ quoteId: id, status: action })
+          })
+        ));
+        fetchQuotes();
+        setSelectedQuotes([]);
+      } catch (error) {
+        console.error('Error updating quote statuses:', error);
+      }
+    }
+  };
+
+  const toggleQuoteSelection = (quoteId: string) => {
+    setSelectedQuotes(prev => 
+      prev.includes(quoteId) 
+        ? prev.filter(id => id !== quoteId)
+        : [...prev, quoteId]
+    );
+  };
+
+  const selectAllQuotes = () => {
+    setSelectedQuotes(
+      selectedQuotes.length === filteredQuotes.length 
+        ? [] 
+        : filteredQuotes.map(q => q.id)
+    );
+  };
+
   const approveAdmin = async (adminId: string) => {
     try {
       const response = await fetch('/api/admin/approve', {
@@ -202,17 +269,20 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
-      <header className="bg-white shadow">
+      <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <h1 className="text-xl font-semibold text-gray-900">Prime Move CRM</h1>
+            <div className="flex items-center space-x-4">
+              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">P</span>
+              </div>
+              <h1 className="text-xl font-bold text-gray-900">Prime Moving CRM</h1>
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-700">Welcome, {admin?.fullName}</span>
               <button
                 onClick={logout}
-                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm"
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm transition-colors"
               >
                 Logout
               </button>
@@ -223,15 +293,15 @@ export default function AdminDashboard() {
 
       <div className="flex">
         {/* Sidebar */}
-        <nav className="bg-white w-64 min-h-screen shadow">
+        <nav className="bg-white w-64 min-h-screen shadow-sm">
           <div className="p-4">
             <ul className="space-y-2">
               <li>
                 <button
                   onClick={() => setActiveTab('dashboard')}
-                  className={`w-full text-left px-4 py-2 rounded ${
+                  className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
                     activeTab === 'dashboard'
-                      ? 'bg-orange-100 text-orange-600'
+                      ? 'bg-orange-100 text-orange-600 font-medium'
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
@@ -241,15 +311,15 @@ export default function AdminDashboard() {
               <li>
                 <button
                   onClick={() => setActiveTab('quotes')}
-                  className={`w-full text-left px-4 py-2 rounded ${
+                  className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
                     activeTab === 'quotes'
-                      ? 'bg-orange-100 text-orange-600'
+                      ? 'bg-orange-100 text-orange-600 font-medium'
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
                   📋 Quote Requests
                   {quoteStats.new > 0 && (
-                    <span className="ml-2 bg-red-600 text-white rounded-full px-2 py-1 text-xs">
+                    <span className="ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
                       {quoteStats.new}
                     </span>
                   )}
@@ -258,15 +328,15 @@ export default function AdminDashboard() {
               <li>
                 <button
                   onClick={() => setActiveTab('admins')}
-                  className={`w-full text-left px-4 py-2 rounded ${
+                  className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
                     activeTab === 'admins'
-                      ? 'bg-orange-100 text-orange-600'
+                      ? 'bg-orange-100 text-orange-600 font-medium'
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
                   👥 Admin Management
                   {pendingAdmins.length > 0 && (
-                    <span className="ml-2 bg-red-600 text-white rounded-full px-2 py-1 text-xs">
+                    <span className="ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
                       {pendingAdmins.length}
                     </span>
                   )}
@@ -284,34 +354,34 @@ export default function AdminDashboard() {
               
               {/* Stats Cards */}
               <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-                <div className="bg-white p-6 rounded-lg shadow">
+                <div className="bg-white p-6 rounded-lg shadow-sm">
                   <div className="text-2xl font-bold text-gray-900">{quoteStats.total}</div>
                   <div className="text-sm text-gray-600">Total Quotes</div>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow">
+                <div className="bg-white p-6 rounded-lg shadow-sm">
                   <div className="text-2xl font-bold text-orange-600">{quoteStats.new}</div>
                   <div className="text-sm text-gray-600">New Quotes</div>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow">
+                <div className="bg-white p-6 rounded-lg shadow-sm">
                   <div className="text-2xl font-bold text-blue-600">{quoteStats.contacted}</div>
                   <div className="text-sm text-gray-600">Contacted</div>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow">
+                <div className="bg-white p-6 rounded-lg shadow-sm">
                   <div className="text-2xl font-bold text-yellow-600">{quoteStats.quoted}</div>
                   <div className="text-sm text-gray-600">Quoted</div>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow">
+                <div className="bg-white p-6 rounded-lg shadow-sm">
                   <div className="text-2xl font-bold text-purple-600">{quoteStats.booked}</div>
                   <div className="text-sm text-gray-600">Booked</div>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow">
+                <div className="bg-white p-6 rounded-lg shadow-sm">
                   <div className="text-2xl font-bold text-green-600">{quoteStats.completed}</div>
                   <div className="text-sm text-gray-600">Completed</div>
                 </div>
               </div>
 
               {/* Recent Quotes */}
-              <div className="bg-white rounded-lg shadow">
+              <div className="bg-white rounded-lg shadow-sm">
                 <div className="p-6 border-b border-gray-200">
                   <h3 className="text-lg font-medium text-gray-900">Recent Quote Requests</h3>
                 </div>
@@ -324,7 +394,7 @@ export default function AdminDashboard() {
                       </div>
                       <div className="text-right">
                         <div className="text-sm text-gray-900">
-                          {new Date(quote.moveDate).toLocaleDateString()}
+                          {quote.moveDate ? new Date(quote.moveDate).toLocaleDateString() : 'No date'}
                         </div>
                         <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(quote.status)}`}>
                           {quote.status || 'NEW'}
@@ -365,12 +435,70 @@ export default function AdminDashboard() {
                 </div>
               </div>
 
-              <div className="bg-white shadow overflow-hidden sm:rounded-md">
+              {/* Bulk Actions */}
+              {selectedQuotes.length > 0 && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-blue-800">
+                      {selectedQuotes.length} quote{selectedQuotes.length > 1 ? 's' : ''} selected
+                    </span>
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={() => handleBulkAction('CONTACTED')}
+                        className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
+                      >
+                        Mark as Contacted
+                      </button>
+                      <button
+                        onClick={() => handleBulkAction('QUOTED')}
+                        className="px-3 py-1 bg-yellow-500 text-white rounded text-sm hover:bg-yellow-600"
+                      >
+                        Mark as Quoted
+                      </button>
+                      <button
+                        onClick={() => handleBulkAction('BOOKED')}
+                        className="px-3 py-1 bg-purple-500 text-white rounded text-sm hover:bg-purple-600"
+                      >
+                        Mark as Booked
+                      </button>
+                      <button
+                        onClick={() => handleBulkAction('delete')}
+                        className="px-3 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="bg-white shadow-sm overflow-hidden sm:rounded-lg">
                 <ul className="divide-y divide-gray-200">
+                  {/* Select All Header */}
+                  <li className="px-6 py-3 bg-gray-50">
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={selectedQuotes.length === filteredQuotes.length && filteredQuotes.length > 0}
+                        onChange={selectAllQuotes}
+                        className="h-4 w-4 text-orange-600 rounded border-gray-300 focus:ring-orange-500"
+                      />
+                      <label className="ml-3 text-sm font-medium text-gray-700">
+                        Select All ({filteredQuotes.length} quotes)
+                      </label>
+                    </div>
+                  </li>
+
                   {filteredQuotes.map((quote) => (
-                    <li key={quote.id} className="px-6 py-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1">
+                    <li key={quote.id} className="px-6 py-4 hover:bg-gray-50">
+                      <div className="flex items-start">
+                        <input
+                          type="checkbox"
+                          checked={selectedQuotes.includes(quote.id)}
+                          onChange={() => toggleQuoteSelection(quote.id)}
+                          className="h-4 w-4 text-orange-600 rounded border-gray-300 focus:ring-orange-500 mt-1"
+                        />
+                        <div className="ml-4 flex-1">
                           <div className="flex items-center justify-between">
                             <p className="text-sm font-medium text-gray-900">{quote.name}</p>
                             <div className="ml-2 flex-shrink-0 flex space-x-2">
@@ -389,6 +517,12 @@ export default function AdminDashboard() {
                                 <option value="COMPLETED">Completed</option>
                                 <option value="CANCELLED">Cancelled</option>
                               </select>
+                              <button
+                                onClick={() => deleteQuote(quote.id)}
+                                className="text-red-600 hover:text-red-800 px-2 py-1 text-xs"
+                              >
+                                Delete
+                              </button>
                             </div>
                           </div>
                           <div className="mt-2 sm:flex sm:justify-between">
@@ -401,15 +535,9 @@ export default function AdminDashboard() {
                               </p>
                             </div>
                             <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
-                              <p>Move Date: {new Date(quote.moveDate).toLocaleDateString()}</p>
+                              <p>Move Date: {quote.moveDate ? new Date(quote.moveDate).toLocaleDateString() : 'Not specified'}</p>
                             </div>
                           </div>
-                          {(quote.fromAddress || quote.toAddress) && (
-                            <div className="mt-2 text-sm text-gray-600">
-                              <p>📍 From: {quote.fromAddress}</p>
-                              <p>📍 To: {quote.toAddress}</p>
-                            </div>
-                          )}
                           {quote.message && (
                             <div className="mt-2">
                               <p className="text-sm text-gray-600">{quote.message}</p>
@@ -432,7 +560,7 @@ export default function AdminDashboard() {
           {activeTab === 'admins' && (
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Admin Management</h2>
-              <div className="bg-white shadow overflow-hidden sm:rounded-md">
+              <div className="bg-white shadow-sm overflow-hidden sm:rounded-lg">
                 <ul className="divide-y divide-gray-200">
                   {pendingAdmins.map((pendingAdmin) => (
                     <li key={pendingAdmin.id} className="px-6 py-4">
@@ -455,7 +583,7 @@ export default function AdminDashboard() {
                         <div className="flex space-x-2">
                           <button
                             onClick={() => approveAdmin(pendingAdmin.id)}
-                            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm"
+                            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded text-sm transition-colors"
                           >
                             Approve
                           </button>
