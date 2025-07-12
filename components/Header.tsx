@@ -1,7 +1,8 @@
+// components/Header.tsx
 "use client";
 
 import { useState, useEffect } from "react";
-import { useTranslation } from "@/hooks/useTranslation";
+import { useTranslation } from "@/components/TranslationProvider";
 import Image from "next/image";
 
 interface HeaderProps {
@@ -35,6 +36,11 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Log locale for debugging
+  useEffect(() => {
+    console.log(`[Header] Rendered with locale: ${locale}`);
+  }, [locale]);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -49,6 +55,7 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
   };
 
   const handleLocaleChange = (newLocale: string) => {
+    console.log(`[Header] Switching to locale: ${newLocale}`);
     setLocale(newLocale as "en" | "es" | "ru");
     setIsLanguageOpen(false);
   };
@@ -62,7 +69,6 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
       >
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-3">
-            {/* Logo */}
             <div className="flex items-center">
               <Image
                 src="/primeMovingHeaderLogo.svg"
@@ -73,8 +79,13 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
               />
             </div>
 
-            {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
+              <button
+                onClick={() => scrollToSection("home")}
+                className="font-medium text-white hover:text-gray-200 transition-colors"
+              >
+                {t("nav.home")}
+              </button>
               <button
                 onClick={() => scrollToSection("about")}
                 className="font-medium text-white hover:text-gray-200 transition-colors"
@@ -100,7 +111,6 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
                 {t("nav.quote")}
               </button>
 
-              {/* Language Selector (Desktop) */}
               <div className="relative">
                 <button
                   onClick={() => setIsLanguageOpen(!isLanguageOpen)}
@@ -146,7 +156,6 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
               </div>
             </nav>
 
-            {/* Mobile Hamburger */}
             <button
               onClick={toggleMenu}
               className="md:hidden p-2 text-white hover:text-gray-200 transition-colors"
@@ -174,7 +183,6 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
         </div>
       </header>
 
-      {/* Mobile Drawer Menu */}
       <div
         className={`fixed inset-0 z-40 transition-opacity duration-300 ${
           isMenuOpen
@@ -182,22 +190,27 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
             : "opacity-0 pointer-events-none"
         }`}
       >
-        {/* Backdrop */}
         <div
           className="absolute inset-0 bg-black/50 backdrop-blur-sm"
           onClick={closeMenu}
         />
 
-        {/* Drawer */}
         <div
           className={`absolute top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out ${
             isMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
           <div className="flex flex-col h-full">
-            {/* Navigation Links */}
             <nav className="flex-1 px-6 py-8">
               <ul className="space-y-4">
+                <li>
+                  <button
+                    onClick={() => scrollToSection("home")}
+                    className="w-full text-left text-lg font-medium text-gray-700 hover:text-orange-600 transition-colors py-3"
+                  >
+                    {t("nav.home")}
+                  </button>
+                </li>
                 <li>
                   <button
                     onClick={() => scrollToSection("about")}
@@ -233,7 +246,6 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
               </ul>
             </nav>
 
-            {/* Language Selector (Mobile) */}
             <div className="px-6 py-4 border-t border-gray-200">
               <h3 className="text-sm font-medium text-gray-700 mb-3">
                 {t("nav.language")}

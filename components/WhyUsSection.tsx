@@ -1,13 +1,18 @@
-
 'use client';
-import { useTranslation } from "@/hooks/useTranslation";
+
+import { useEffect } from 'react';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface WhyUsSectionProps {
   smoothScrollTo: (elementId: string) => void;
 }
 
 export default function WhyUsSection({ smoothScrollTo }: WhyUsSectionProps) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
+
+  useEffect(() => {
+    console.log(`[WhyUsSection] Rendered with locale: ${locale}`);
+  }, [locale]);
 
   return (
     <section id="why-us" className="py-16 bg-white">
@@ -21,38 +26,28 @@ export default function WhyUsSection({ smoothScrollTo }: WhyUsSectionProps) {
             <h4 className="text-xl font-bold text-gray-800 mb-4">
               {t('whyUs.licensed')}
             </h4>
-            <p className="text-gray-600">
-              {t('whyUs.licensedDesc')}
-            </p>
+            <p className="text-gray-600">{t('whyUs.licensedDesc')}</p>
           </div>
           <div className="text-center p-6">
             <div className="text-5xl mb-4 text-orange-500">👥</div>
             <h4 className="text-xl font-bold text-gray-800 mb-4">
               {t('whyUs.experienced')}
             </h4>
-            <p className="text-gray-600">
-              {t('whyUs.experiencedDesc')}
-            </p>
+            <p className="text-gray-600">{t('whyUs.experiencedDesc')}</p>
           </div>
           <div className="text-center p-6">
             <div className="text-5xl mb-4 text-orange-500">💰</div>
             <h4 className="text-xl font-bold text-gray-800 mb-4">
               {t('whyUs.transparent')}
             </h4>
-            <p className="text-gray-600">
-              {t('whyUs.transparentDesc')}
-            </p>
+            <p className="text-gray-600">{t('whyUs.transparentDesc')}</p>
           </div>
         </div>
-        
+
         <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-8 rounded-lg text-center">
-          <h4 className="text-3xl font-bold mb-4">
-            {t('whyUs.ctaTitle')}
-          </h4>
-          <p className="text-xl mb-6 text-orange-100">
-            {t('whyUs.ctaDesc')}
-          </p>
-          <button 
+          <h4 className="text-3xl font-bold mb-4">{t('whyUs.ctaTitle')}</h4>
+          <p className="text-xl mb-6 text-orange-100">{t('whyUs.ctaDesc')}</p>
+          <button
             onClick={() => smoothScrollTo('quote')}
             className="bg-white text-orange-600 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-orange-50 transition-colors shadow-lg"
           >

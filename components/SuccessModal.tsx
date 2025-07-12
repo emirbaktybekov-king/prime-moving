@@ -1,5 +1,7 @@
-'use client';
-import { useTranslation } from "@/hooks/useTranslation";
+"use client";
+
+import { useEffect } from "react";
+import { useTranslation } from "@/components/TranslationProvider";
 
 interface SuccessModalProps {
   isOpen: boolean;
@@ -7,7 +9,11 @@ interface SuccessModalProps {
 }
 
 export default function SuccessModal({ isOpen, onClose }: SuccessModalProps) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
+
+  useEffect(() => {
+    console.log(`[SuccessModal] Rendered with locale: ${locale}`);
+  }, [locale]);
 
   if (!isOpen) return null;
 
@@ -17,16 +23,14 @@ export default function SuccessModal({ isOpen, onClose }: SuccessModalProps) {
         <div className="text-center">
           <div className="text-6xl mb-4">✅</div>
           <h3 className="text-2xl font-bold text-gray-800 mb-4">
-            {t('modal.thankYou')}
+            {t("modal.thankYou")}
           </h3>
-          <p className="text-gray-600 mb-6">
-            {t('modal.message')}
-          </p>
+          <p className="text-gray-600 mb-6">{t("modal.message")}</p>
           <button
             onClick={onClose}
             className="bg-gradient-to-r from-orange-400 to-orange-500 text-white px-6 py-3 rounded-lg hover:from-orange-500 hover:to-orange-600 transition-all font-semibold"
           >
-            {t('modal.close')}
+            {t("modal.close")}
           </button>
         </div>
       </div>

@@ -1,87 +1,119 @@
-
 {
   "nav": {
-    "about": "Acerca de",
-    "whyUs": "Por Qué Nosotros",
+    "home": "Inicio",
+    "about": "Sobre Nosotros",
     "services": "Servicios",
-    "contactNow": "Contactar Ahora",
+    "whyUs": "Por Qué Nosotros",
     "quote": "Obtener Cotización",
-    "language": "Idioma"
+    "language": "Idioma",
+    "en": "Inglés",
+    "es": "Español",
+    "ru": "Ruso"
   },
   "hero": {
-    "title": "Mudadores Profesionales en los que Puedes Confiar",
-    "subtitle": "Tu socio confiable para mudanzas locales y de larga distancia. Manejamos tus pertenencias con cuidado y precisión.",
+    "title": "Servicios de Mudanza Profesionales en los que Puedes Confiar",
+    "subtitle": "Tu socio confiable para mudanzas locales y de larga distancia. Tratamos tus pertenencias con cuidado y precisión.",
+    "description": "Tratamos tus pertenencias con cuidado y precisión. Desde mudanzas locales hasta relocalizaciones de larga distancia, hacemos que tu experiencia de mudanza sea sin estrés y eficiente.",
     "getFreeQuote": "Obtener Cotización Gratis",
-    "viewServices": "Ver Servicios"
+    "viewServices": "Ver Servicios",
+    "badge": "Confiado por más de 1000 clientes satisfechos",
+    "trust": {
+      "fullyInsured": "Totalmente Asegurado",
+      "sameDayService": "Servicio el Mismo Día",
+      "satisfaction": "100% Satisfacción",
+      "support": "Soporte 24/7"
+    }
   },
   "about": {
-    "title": "Acerca de Prime Move",
-    "story": "Historia",
-    "impact": "Impacto",
-    "mission": "Misión",
-    "storyContent": "Con años de experiencia en la industria de mudanzas, Prime Move se ha establecido como un socio confiable para familias y empresas. Entendemos que mudarse puede ser estresante, por eso estamos comprometidos a hacer tu reubicación lo más fluida y sin complicaciones posible.",
-    "impactContent": "Hemos completado exitosamente más de 10,000 mudanzas, ayudando a familias y empresas a hacer la transición a sus nuevos espacios con confianza. Nuestro historial habla por sí mismo: 99% de satisfacción del cliente y cero reclamos por daños en el último año.",
-    "missionContent": "Nuestra misión es proporcionar servicios de mudanza excepcionales que superen las expectativas. Creemos que cada mudanza es un nuevo comienzo, y estamos aquí para hacer esa transición lo más fluida posible para nuestros clientes."
+    "title": "Sobre Nosotros",
+    "story": "Nuestra Historia",
+    "impact": "Nuestro Impacto",
+    "mission": "Nuestra Misión",
+    "storyContent": "Prime Moving fue fundado con la visión de simplificar el proceso de mudanza. Con años de experiencia, hemos ayudado a miles de familias y empresas a reubicarse con facilidad.",
+    "impactContent": "Hemos servido a más de 1000 clientes felices, proporcionando servicios de mudanza confiables y eficientes en todo el país, con un enfoque en la sostenibilidad y el apoyo a la comunidad.",
+    "missionContent": "Nuestra misión es ofrecer experiencias de mudanza sin estrés a través de un servicio excepcional, transparencia y cuidado por las pertenencias de nuestros clientes."
   },
   "whyUs": {
-    "title": "¿Por Qué Elegir Prime Move?",
-    "licensed": "Licenciado y Asegurado",
-    "licensedDesc": "Completamente licenciado y asegurado para tu tranquilidad.",
-    "experienced": "Equipo Experimentado",
-    "experiencedDesc": "Mudadores profesionales con años de experiencia.",
+    "title": "Por Qué Elegirnos",
+    "licensed": "Totalmente Licenciado y Asegurado",
+    "licensedDesc": "Estamos totalmente licenciados y asegurados, brindándote tranquilidad durante tu mudanza.",
+    "experienced": "Profesionales Experimentados",
+    "experiencedDesc": "Nuestro equipo está compuesto por profesionales capacitados con años de experiencia en mudanzas.",
     "transparent": "Precios Transparentes",
-    "transparentDesc": "Sin tarifas ocultas, precios por adelantado en los que puedes confiar.",
-    "ctaTitle": "¡Obtén tu Cotización Gratis Hoy!",
-    "ctaDesc": "Contáctanos para una estimación de mudanza personalizada.",
+    "transparentDesc": "Sin costos ocultos. Ofrecemos precios claros y por adelantado para todos nuestros servicios.",
+    "ctaTitle": "Listo para Mudarte?",
+    "ctaDesc": "Comienza con una cotización gratuita y experimenta una mudanza sin complicaciones con Prime Moving.",
     "requestQuote": "Solicitar Cotización"
   },
   "services": {
     "title": "Nuestros Servicios",
-    "residential": "Mudanza Residencial",
-    "residentialDesc": "Servicios completos de mudanza de hogar con empaque y desempaque profesional.",
-    "commercial": "Mudanza Comercial",
-    "commercialDesc": "Reubicaciones de oficina con tiempo de inactividad mínimo y máxima eficiencia.",
-    "packing": "Servicios de Empaque",
-    "packingDesc": "Empaque profesional con materiales de alta calidad y manejo cuidadoso."
+    "residential": "Mudanzas Residenciales",
+    "residentialDesc": "Ofrecemos servicios de mudanza residencial integrales para que la reubicación de tu hogar sea fluida y sin estrés.",
+    "commercial": "Mudanzas Comerciales",
+    "commercialDesc": "Nuestros servicios de mudanza comercial aseguran que tu negocio se reubique eficientemente con un tiempo de inactividad mínimo.",
+    "packing": "Servicios de Embalaje",
+    "packingDesc": "Deja que nos encarguemos del embalaje con nuestros servicios de embalaje profesionales, asegurando que tus artículos estén seguros."
   },
   "quote": {
     "title": "Obtén tu Cotización Gratis",
+    "description": "Completa el formulario a continuación para obtener una cotización gratuita y sin compromiso para tu mudanza.",
     "fullName": "Nombre Completo",
+    "namePlaceholder": "Ingrese su nombre completo",
     "email": "Correo Electrónico",
+    "emailPlaceholder": "your.email@example.com",
     "phone": "Número de Teléfono",
+    "phonePlaceholder": "(555) 123-4567",
     "moveDate": "Fecha de tu Mudanza",
+    "moveDatePlaceholder": "Seleccione su fecha de mudanza preferida",
     "message": "Información Adicional",
     "messagePlaceholder": "Cuéntanos sobre tus necesidades de mudanza...",
     "submit": "Obtener Cotización Gratis",
+    "submitting": "Enviando...",
+    "note": "* Solo se requiere su nombre. Nos pondremos en contacto para recopilar detalles adicionales.",
     "selectDate": "Seleccionar fecha...",
     "previousMonth": "Mes anterior",
-    "nextMonth": "Mes siguiente"
+    "nextMonth": "Mes siguiente",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "error": "Ocurrió un error. Por favor, intenta de nuevo."
   },
   "modal": {
-    "thankYou": "¡Gracias!",
-    "message": "¡Gracias! Nuestro representante te contactará pronto.",
+    "thankYou": "Gracias!",
+    "message": "Tu solicitud de cotización ha sido enviada con éxito. Nos pondremos en contacto contigo pronto!",
     "close": "Cerrar"
   },
   "footer": {
-    "tagline": "Tu socio confiable de mudanzas para una experiencia de reubicación sin problemas.",
-    "services": "Servicios",
-    "residential": "Mudanza Residencial",
-    "commercial": "Mudanza Comercial",
-    "packing": "Servicios de Empaque",
+    "tagline": "Prime Moving – Tu socio confiable para mudanzas sin estrés.",
+    "services": "Nuestros Servicios",
+    "residential": "Mudanzas Residenciales",
+    "commercial": "Mudanzas Comerciales",
+    "packing": "Servicios de Embalaje",
     "storage": "Soluciones de Almacenamiento",
-    "contact": "Contacto",
-    "hours": "Horarios",
-    "hoursMonFri": "Lun-Vie: 7AM-7PM",
-    "hoursSat": "Sábado: 8AM-6PM",
-    "hoursSun": "Domingo: 9AM-5PM",
-    "phone": "(555) 123-4567",
-    "email": "info@primemove.com",
-    "address": "123 Moving St, City, State",
-    "copyright": "© 2024 Prime Move. Todos los derechos reservados."
+    "contact": "Contáctanos",
+    "phone": "(800) 123-4567",
+    "email": "info@primemoving.com",
+    "address": "1234 Calle Mudanza, Ciudad, País",
+    "hours": "Horario de Operación",
+    "hoursMonFri": "Lun - Vie: 8:00 AM - 6:00 PM",
+    "hoursSat": "Sáb: 9:00 AM - 4:00 PM",
+    "hoursSun": "Dom: Cerrado",
+    "copyright": "© 2025 Prime Moving. Todos los derechos reservados."
   },
   "calendar": {
-    "months": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-    "daysShort": ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
-    "today": "Hoy"
+    "months": [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre"
+    ],
+    "daysShort": ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"]
   }
 }

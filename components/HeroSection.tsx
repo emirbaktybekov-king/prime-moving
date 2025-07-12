@@ -1,25 +1,31 @@
 "use client";
 
-import { useTranslation } from "@/hooks/useTranslation";
+import { useEffect } from "react";
+import { useTranslation } from "@/components/TranslationProvider";
 
 interface HeroSectionProps {
   smoothScrollTo: (elementId: string) => void;
 }
 
 export default function HeroSection({ smoothScrollTo }: HeroSectionProps) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
+
+  useEffect(() => {
+    console.log(`[HeroSection] Rendered with locale: ${locale}`);
+  }, [locale]);
 
   const scrollToQuote = () => {
     smoothScrollTo("quote");
   };
+
+  const heroTitle = t("hero.title") as string; // Type assertion since hero.title is always a string
 
   return (
     <section
       id="home"
       className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 overflow-hidden"
     >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-90">
         <div
           className="absolute inset-0"
           style={{
@@ -28,7 +34,6 @@ export default function HeroSection({ smoothScrollTo }: HeroSectionProps) {
         />
       </div>
 
-      {/* Floating Elements */}
       <div
         className="absolute top-20 left-10 w-20 h-20 bg-white bg-opacity-20 rounded-full animate-bounce"
         style={{ animationDelay: "0s", animationDuration: "3s" }}
@@ -48,33 +53,27 @@ export default function HeroSection({ smoothScrollTo }: HeroSectionProps) {
 
       <div className="container mx-auto px-4 text-center text-white relative z-10">
         <div className="max-w-4xl mx-auto">
-          {/* Badge */}
           <div className="inline-flex items-center px-4 py-2 bg-white bg-opacity-20 backdrop-blur-sm rounded-full text-white font-medium mb-6 animate-fade-in">
             <span className="mr-2">⭐</span>
-            Trusted by 1000+ Happy Customers
+            {t("hero.badge")}
           </div>
 
-          {/* Main Heading */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-slide-up">
-            <span className="block text-white drop-shadow-lg">
-              Professional Moving
+            <span className="block text-white drop-shadow-xl">
+              {heroTitle.split(" ").slice(0, -3).join(" ")}
             </span>
-            <span className="block text-yellow-200 drop-shadow-lg">
-              Services You Can Trust
+            <span className="block text-yellow-200 drop-shadow-xl">
+              {heroTitle.split(" ").slice(-3).join(" ")}
             </span>
           </h1>
 
-          {/* Description */}
           <p
-            className="text-lg md:text-xl text-orange-100 mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up"
+            className="text-lg md:text-xl text-orange-50 mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up"
             style={{ animationDelay: "0.2s" }}
           >
-            We handle your belongings with care and precision. From local moves
-            to long-distance relocations, we make your moving experience
-            stress-free and efficient.
+            {t("hero.description")}
           </p>
 
-          {/* CTA Buttons */}
           <div
             className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up"
             style={{ animationDelay: "0.4s" }}
@@ -83,42 +82,46 @@ export default function HeroSection({ smoothScrollTo }: HeroSectionProps) {
               onClick={scrollToQuote}
               className="bg-white text-orange-600 font-bold py-3 px-8 rounded-lg text-lg hover:bg-orange-50 transition-all shadow-lg transform hover:scale-105"
             >
-              Get Free Quote
+              {t("hero.getFreeQuote")}
             </button>
             <button
               onClick={() => smoothScrollTo("services")}
               className="border-2 border-white text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-white hover:text-orange-600 transition-all transform hover:scale-105"
             >
-              Our Services
+              {t("hero.viewServices")}
             </button>
           </div>
 
-          {/* Trust Indicators */}
           <div
-            className="mt-12 flex flex-wrap justify-center items-center gap-6 text-orange-100 animate-fade-in"
+            className="mt-12 flex flex-wrap justify-center items-center gap-6 text-orange-50 animate-fade-in"
             style={{ animationDelay: "0.6s" }}
           >
             <div className="flex items-center">
               <span className="text-xl mr-2">🛡️</span>
-              <span className="font-medium">Fully Insured</span>
+              <span className="font-medium">
+                {t("hero.trust.fullyInsured")}
+              </span>
             </div>
             <div className="flex items-center">
               <span className="text-xl mr-2">⚡</span>
-              <span className="font-medium">Same Day Service</span>
+              <span className="font-medium">
+                {t("hero.trust.sameDayService")}
+              </span>
             </div>
             <div className="flex items-center">
               <span className="text-xl mr-2">💯</span>
-              <span className="font-medium">100% Satisfaction</span>
+              <span className="font-medium">
+                {t("hero.trust.satisfaction")}
+              </span>
             </div>
             <div className="flex items-center">
               <span className="text-xl mr-2">📞</span>
-              <span className="font-medium">24/7 Support</span>
+              <span className="font-medium">{t("hero.trust.support")}</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
           <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
