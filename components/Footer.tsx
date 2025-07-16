@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import Image from 'next/image';
-import { useTranslation } from '@/components/TranslationProvider';
+import { useEffect } from "react";
+import Image from "next/image";
+import { useTranslation } from "@/components/TranslationProvider";
 
 export default function Footer() {
   const { t, locale } = useTranslation();
@@ -25,36 +25,36 @@ export default function Footer() {
                 className="rounded"
               />
             </div>
-            <p className="text-gray-400">{t('footer.tagline')}</p>
+            <p className="text-gray-400">{t("footer.tagline")}</p>
           </div>
           <div>
-            <h4 className="font-bold mb-4">{t('footer.services')}</h4>
+            <h4 className="font-bold mb-4">{t("footer.services")}</h4>
             <ul className="space-y-2 text-gray-400">
-              <li>{t('footer.residential')}</li>
-              <li>{t('footer.commercial')}</li>
-              <li>{t('footer.packing')}</li>
-              <li>{t('footer.storage')}</li>
+              <li>{t("footer.residential")}</li>
+              <li>{t("footer.commercial")}</li>
+              <li>{t("footer.packing")}</li>
+              <li>{t("footer.storage")}</li>
             </ul>
           </div>
           <div>
-            <h4 className="font-bold mb-4">{t('footer.contact')}</h4>
+            <h4 className="font-bold mb-4">{t("footer.contact")}</h4>
             <ul className="space-y-2 text-gray-400">
-              <li>📞 {t('footer.phone')}</li>
-              <li>✉️ {t('footer.email')}</li>
-              <li>📍 {t('footer.address')}</li>
+              <li>📞 (929) 720-4502</li>
+              <li>✉️ primemove77@gmail.com</li>
+              <li>📍 3595 Deep Cove Dr, Cumming, GA 30041</li>
             </ul>
           </div>
           <div>
-            <h4 className="font-bold mb-4">{t('footer.hours')}</h4>
+            <h4 className="font-bold mb-4">{t("footer.hours")}</h4>
             <ul className="space-y-2 text-gray-400">
-              <li>{t('footer.hoursMonFri')}</li>
-              <li>{t('footer.hoursSat')}</li>
-              <li>{t('footer.hoursSun')}</li>
+              <li>{t("footer.hoursMonFri")}</li>
+              <li>{t("footer.hoursSat")}</li>
+              <li>{t("footer.hoursSun")}</li>
             </ul>
           </div>
         </div>
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-          <p>{t('footer.copyright')}</p>
+          <p>{t("footer.copyright")}</p>
         </div>
       </div>
     </footer>
