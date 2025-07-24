@@ -63,7 +63,7 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-orange-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white ${
           isScrolled ? "shadow-lg" : ""
         }`}
       >
@@ -82,39 +82,51 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
             <nav className="hidden md:flex items-center space-x-8">
               <button
                 onClick={() => scrollToSection("home")}
-                className="font-medium text-white hover:text-gray-200 transition-colors"
+                className="font-medium text-gray-700 hover:text-aura-blue-600 transition-colors"
               >
-                {t("nav.home")}
+                Home
               </button>
               <button
                 onClick={() => scrollToSection("about")}
-                className="font-medium text-white hover:text-gray-200 transition-colors"
+                className="font-medium text-gray-700 hover:text-aura-blue-600 transition-colors"
               >
-                {t("nav.about")}
-              </button>
-              <button
-                onClick={() => scrollToSection("why-us")}
-                className="font-medium text-white hover:text-gray-200 transition-colors"
-              >
-                {t("nav.whyUs")}
+                About Us
               </button>
               <button
                 onClick={() => scrollToSection("services")}
-                className="font-medium text-white hover:text-gray-200 transition-colors"
+                className="font-medium text-gray-700 hover:text-aura-blue-600 transition-colors"
               >
-                {t("nav.services")}
+                Services
+              </button>
+              <button
+                onClick={() => scrollToSection("reviews")}
+                className="font-medium text-gray-700 hover:text-aura-blue-600 transition-colors"
+              >
+                Reviews
+              </button>
+              <button
+                onClick={() => scrollToSection("blog")}
+                className="font-medium text-gray-700 hover:text-aura-blue-600 transition-colors"
+              >
+                Blog
+              </button>
+              <button
+                onClick={() => scrollToSection("contact")}
+                className="font-medium text-gray-700 hover:text-aura-blue-600 transition-colors"
+              >
+                Contact Us
               </button>
               <button
                 onClick={() => scrollToSection("quote")}
-                className="bg-white text-orange-500 px-6 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors shadow-md"
+                className="bg-aura-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-aura-blue-700 transition-colors shadow-md"
               >
-                {t("nav.quote")}
+                Get Instant Quote
               </button>
 
               <div className="relative">
                 <button
                   onClick={() => setIsLanguageOpen(!isLanguageOpen)}
-                  className="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-600 hover:border-gray-400 transition-colors bg-orange-600 text-white"
+                  className="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-300 hover:border-gray-400 transition-colors bg-white text-gray-700"
                   aria-label="Toggle language selector"
                 >
                   <span>{flagMap[locale] || "🌐"}</span>
@@ -143,7 +155,7 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
                         onClick={() => handleLocaleChange(code)}
                         className={`w-full flex items-center space-x-3 px-4 py-2 text-left text-sm transition-colors ${
                           locale === code
-                            ? "bg-orange-50 text-orange-600"
+                            ? "bg-aura-blue-50 text-aura-blue-600"
                             : "text-gray-700 hover:bg-gray-50"
                         }`}
                       >
@@ -158,7 +170,7 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
 
             <button
               onClick={toggleMenu}
-              className="md:hidden p-2 text-white hover:text-gray-200 transition-colors"
+              className="md:hidden p-2 text-gray-700 hover:text-aura-blue-600 transition-colors"
               aria-label="Toggle menu"
             >
               <div className="w-6 h-6 relative">
@@ -206,41 +218,57 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
                 <li>
                   <button
                     onClick={() => scrollToSection("home")}
-                    className="w-full text-left text-lg font-medium text-gray-700 hover:text-orange-600 transition-colors py-3"
+                    className="w-full text-left text-lg font-medium text-gray-700 hover:text-aura-blue-600 transition-colors py-3"
                   >
-                    {t("nav.home")}
+                    Home
                   </button>
                 </li>
                 <li>
                   <button
                     onClick={() => scrollToSection("about")}
-                    className="w-full text-left text-lg font-medium text-gray-700 hover:text-orange-600 transition-colors py-3"
+                    className="w-full text-left text-lg font-medium text-gray-700 hover:text-aura-blue-600 transition-colors py-3"
                   >
-                    {t("nav.about")}
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => scrollToSection("why-us")}
-                    className="w-full text-left text-lg font-medium text-gray-700 hover:text-orange-600 transition-colors py-3"
-                  >
-                    {t("nav.whyUs")}
+                    About Us
                   </button>
                 </li>
                 <li>
                   <button
                     onClick={() => scrollToSection("services")}
-                    className="w-full text-left text-lg font-medium text-gray-700 hover:text-orange-600 transition-colors py-3"
+                    className="w-full text-left text-lg font-medium text-gray-700 hover:text-aura-blue-600 transition-colors py-3"
                   >
-                    {t("nav.services")}
+                    Services
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => scrollToSection("reviews")}
+                    className="w-full text-left text-lg font-medium text-gray-700 hover:text-aura-blue-600 transition-colors py-3"
+                  >
+                    Reviews
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => scrollToSection("blog")}
+                    className="w-full text-left text-lg font-medium text-gray-700 hover:text-aura-blue-600 transition-colors py-3"
+                  >
+                    Blog
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => scrollToSection("contact")}
+                    className="w-full text-left text-lg font-medium text-gray-700 hover:text-aura-blue-600 transition-colors py-3"
+                  >
+                    Contact Us
                   </button>
                 </li>
                 <li>
                   <button
                     onClick={() => scrollToSection("quote")}
-                    className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-4 px-6 rounded-lg text-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg"
+                    className="w-full bg-gradient-to-r from-aura-blue-600 to-aura-blue-700 text-white font-bold py-4 px-6 rounded-lg text-lg hover:from-aura-blue-700 hover:to-aura-blue-800 transition-all shadow-lg"
                   >
-                    {t("nav.quote")}
+                    Get Instant Quote
                   </button>
                 </li>
               </ul>
@@ -248,7 +276,7 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
 
             <div className="px-6 py-4 border-t border-gray-200">
               <h3 className="text-sm font-medium text-gray-700 mb-3">
-                {t("nav.language")}
+                Language
               </h3>
               <div className="space-y-2">
                 {Object.entries(languageNames).map(([code, name]) => (
@@ -257,7 +285,7 @@ export default function Header({ smoothScrollTo }: HeaderProps) {
                     onClick={() => handleLocaleChange(code)}
                     className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
                       locale === code
-                        ? "bg-orange-50 text-orange-600"
+                        ? "bg-aura-blue-50 text-aura-blue-600"
                         : "text-gray-700 hover:bg-gray-50"
                     }`}
                   >

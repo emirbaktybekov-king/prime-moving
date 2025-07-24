@@ -3,9 +3,9 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
-import WhyUsSection from "@/components/WhyUsSection";
 import ServicesSection from "@/components/ServicesSection";
-import QuoteSection from "@/components/QuoteSection";
+import ReviewsSection from "@/components/ReviewsSection";
+import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 
 interface SmoothScrollProps {
@@ -25,9 +25,9 @@ export default function Home() {
       <Header smoothScrollTo={smoothScrollTo} />
       <HeroSection smoothScrollTo={smoothScrollTo} />
       <AboutSection />
-      <WhyUsSection smoothScrollTo={smoothScrollTo} />
       <ServicesSection />
-      <QuoteSection />
+      <ReviewsSection />
+      <FAQSection />
       <Footer />
     </main>
   );

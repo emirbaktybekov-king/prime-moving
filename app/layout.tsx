@@ -7,12 +7,12 @@ import { TranslationProvider } from "@/components/TranslationProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Prime Move - Professional Moving Services",
+  title: "Prime Moving - Professional Moving Services | Bay Area Movers",
   description:
-    "Your trusted partner for local and long-distance moves. Professional moving services with care and precision.",
+    "Bay Area's #1 choice for comprehensive moving services. Professional residential and commercial moving solutions with upfront pricing and exceptional customer care.",
   keywords:
-    "moving services, professional movers, local moving, long distance moving, packing services",
-  authors: [{ name: "Prime Move" }],
+    "moving services, professional movers, Bay Area moving, residential moving, commercial moving, packing services, local movers, long distance moving",
+  authors: [{ name: "Prime Moving" }],
   viewport: "width=device-width, initial-scale=1",
 };
 
